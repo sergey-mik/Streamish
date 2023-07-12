@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Video from './Video'
-import FormComponent from './Form'
+import SearchVideos from './Search'
 import { getAllVideos } from '../modules/videoManager'
 
 const VideoList = () => {
@@ -16,8 +16,7 @@ const VideoList = () => {
 
   return (
     <div className="container">
-      {/* Pass getVideos function as prop to FormComponent */}
-      <FormComponent onVideoCreated={getVideos} />
+      <SearchVideos />
 
       <div className="row justify-content-center">
         {videos.map((video) => (

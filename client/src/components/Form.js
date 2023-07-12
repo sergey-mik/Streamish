@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { addVideo } from '../modules/videoManager'
+import { useNavigate } from 'react-router-dom'
 
 const FormComponent = ({ onVideoCreated }) => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const FormComponent = ({ onVideoCreated }) => {
     url: '',
   })
   const [status, setStatus] = useState(null)
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -22,7 +24,11 @@ const FormComponent = ({ onVideoCreated }) => {
       // Handle successful video creation here
       setStatus('success')
       // Call onVideoCreated callback function to refresh list of videos in parent component
-      onVideoCreated()
+     if (typeof onVideoCreated === 'function') {
+       onVideoCreated()
+     }
+      // Redirect user to list page
+      navigate('/')
     } else {
       // Handle errors here
       setStatus('error')
@@ -77,6 +83,10 @@ const FormComponent = ({ onVideoCreated }) => {
           .form-container {
             max-width: 500px;
             margin: 0 auto;
+          }
+          .submit {
+            display: block;
+            margin-left: 0;
           }
         `}</style>
       </div>
